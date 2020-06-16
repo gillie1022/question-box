@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 def homepage(request):
     pass
 
+def login(request):
+    return render(request, "core/login.html",)
 
 def list_questions(request):
     questions = request.user.questions.all()
