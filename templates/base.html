@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div class="user-logout">
+      Hello, {{user.username}}!<br />
+      <a href="{% url 'auth_logout' %}">Logout</a>
+    </div>
+    {% endif %} 
+    {% if user.is_authenticated %}
+    <div class="user-logout">
+      Hello, {{user.username}}!<br />
+      <a href="{% url 'auth_logout' %}">Logout</a>
+    </div>
+    {% endif %}
+  </body>
+</html>
