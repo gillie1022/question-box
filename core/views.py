@@ -9,7 +9,7 @@ def homepage(request):
     return render(request, 'core/home.html')
 
 def list_questions(request):
-    questions = request.user.questions.all()
+    questions = Question.objects.all()
     return render(request, "questions/list_questions.html", {"questions": questions,})
 
 def list_answers(request, question_pk):
