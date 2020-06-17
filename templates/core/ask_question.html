@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h2>Make an Inquiry</h2>
+
+<form action="{% url 'ask_question' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button type="submit">Make Inquiry</button>
+    </div>
+</form>
+
 
 {% endblock %}

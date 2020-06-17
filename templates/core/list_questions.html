@@ -2,6 +2,24 @@
 
 {% block content %}
 <h2>Inquiry List</h2>
-{% for question in questions %}
-<a href="{% url 'list_answers' question_pk=question.pk %}">{{ question }}</a>
+
+<ul>
+    {% for question in questions %}
+    <li><a href="{% url 'question_detail' question_pk=question.pk %}">{{ question }}</a>
+    {% if user == question.user %}
+    <a href="">Edit This Inquiry</a>
+    {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% if user.is_authenticated %}
+<div>
+    <a href="{% url 'ask_question' %}">Make an Inquiry</a>
+</div>
+{% endif %}
+{% if not user.is_authenticated %}
+<div>
+    <p>Please <a href="{% url 'auth_login' %}">Sign in</a> or <a href="{% url 'registration_register' %}">Sign up</a> to make an inquiry</p>
+</div>
+{% endif %}
 {% endblock %}

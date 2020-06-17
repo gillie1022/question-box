@@ -6,6 +6,7 @@
     <title>Document</title>
   </head>
   <body>
+    <a href="{% url 'homepage' %}"><h1>The Inquiry Crate</h1></a>
     {% if user.is_authenticated %}
     <div class="user-logout">
       Hello, {{user.username}}!<br />
