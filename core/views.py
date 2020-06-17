@@ -10,7 +10,7 @@ def homepage(request):
 
 def list_questions(request):
     questions = Question.objects.all()
-    return render(request, "questions/list_questions.html", {"questions": questions,})
+    return render(request, "core/list_questions.html", {"questions": questions,})
 
 def list_answers(request, question_pk):
     pass
