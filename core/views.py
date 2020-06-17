@@ -3,21 +3,23 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def homepage(request):
-    pass
+    if request.user.is_authenticated:
+        return redirect(to='question_list')
 
-def login(request):
-    return render(request, "core/login.html",)
+    return render(request, 'core/home.html')
 
 def list_questions(request):
     questions = request.user.questions.all()
     return render(request, "questions/list_questions.html", {"questions": questions,})
 
-def question_detail(request, question_pk):
+def list_answers(request, question_pk):
     pass
 
-def add_question(request):
+@login_required
+def ask_question(request):
     pass
 
-def add_answer(request, question_pk):
+@login_required
+def answer_question(request, question_pk):
     pass
 

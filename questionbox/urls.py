@@ -21,7 +21,12 @@ from core import views as core_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('login/', core_views.login, name="login")
+    path('', core_views.homepage, name='homepage'),
+    path('questions/', core_views.list_questions, name='question_list'),
+    path('questions/<int:question_pk>/answers/', core_views.list_answers, name='list_answers'),
+    path('questions/new/', core_views.ask_question, name='ask_question'),
+    path('questions/<int:question_pk>/answer_question/', core_views.answer_question, name='answer_question'),
+
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,7 @@
+{% extends base.html %}
+
+{% block content %}
+<h2>Inquiry List</h2>
+{% for question in questions %}
+<a href="{% url 'list_answers' question_pk=question.pk %}">{{ question }}</a>
+{% endblock %}
