@@ -55,6 +55,7 @@ def answer_question(request, question_pk):
         if form.is_valid():
             answer = form.save(commit=False)
             answer.question = question
+            answer.author = request.user
             answer.save()
             return redirect(to="question_detail", question_pk=question.pk)
     else:

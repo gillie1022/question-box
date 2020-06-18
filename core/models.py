@@ -17,6 +17,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, related_name="answers")
     question = models.ForeignKey(
         to=Question, on_delete=models.CASCADE, related_name="answers"
     )

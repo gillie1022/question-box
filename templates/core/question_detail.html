@@ -10,7 +10,7 @@
 <ul>
   {% for answer in question.answers.all %}
   <li>
-    {{ answer }} {% if user == question.user %}
+    {{ answer }} by {{ answer.author }}{% if user == question.user %}
     <a href="">Mark This Response as Correct</a>
     {% endif %}
   </li>
