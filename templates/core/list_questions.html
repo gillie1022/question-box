@@ -7,7 +7,7 @@
     {% for question in questions %}
     <li><a href="{% url 'question_detail' question_pk=question.pk %}">{{ question }}</a>
     {% if user == question.user %}
-    <a href="">Edit This Inquiry</a>
+    <a href="{% url 'edit_question' question_pk=question.pk %}">Edit This Inquiry</a>
     {% endif %}
     </li>
     {% endfor %}

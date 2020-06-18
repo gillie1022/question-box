@@ -33,6 +33,20 @@ def ask_question(request):
     return render(request, "core/ask_question.html", {"form": form})
 
 @login_required
+def edit_question(request, question_pk):
+    question = get_object_or_404(request.user.questions, pk=question_pk)
+    if request.method == "POST":
+        form = QuestionForm(data=request.POST, instance=question)
+        if form.is_valid():
+            question = form.save()
+            return redirect(to='question_detail', question_pk=question.pk)
+    else:
+        form = QuestionForm(instance=question)
+
+    return render(request, "core/edit_question.html", {"form": form, "question": question})
+
+
+@login_required
 def answer_question(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     if request.method == "POST":
