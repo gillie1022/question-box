@@ -9,9 +9,6 @@
     <a href="{% url 'question_detail' question_pk=question.pk %}"
       >{{ question }}</a
     >
-    <a href="{% url 'edit_question' question_pk=question.pk %}"
-      >Edit This Inquiry</a
-    >
   </li>
   {% endfor %} {% endif %}
 </ul>
@@ -21,7 +18,7 @@
   <li>
     <a href="{% url 'question_detail' question_pk=question.pk %}"
       >{{ question }}</a
-    >
+    > asked by {{ question.user }}
   </li>
   {% endfor %}
 </ul>

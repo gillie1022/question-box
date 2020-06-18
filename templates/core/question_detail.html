@@ -1,30 +1,34 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div>
-    <h2>{{ question.title }}</h2>
-    <p>{{ question.body }}</p>
+  <h2>{{ question.title }}</h2>
+  {% if user == question.user %}<a href="{% url 'edit_question' question_pk=question.pk %}"
+  >Edit This Inquiry</a
+>{% endif %}
+  <p>{{ question.body }}</p>
 </div>
+<h3>Responses</h3>
 <ul>
-    {% for answer in question.answers.all %}
-    <li>{{ answer }}
-        {% if user == question.user %}
-        <a href="">Mark This Response as Correct</a>
-        {% endif %}
-
-    </li>
-    {% endfor %}
+  {% for answer in question.answers.all %}
+  <li>
+    {{ answer }} {% if user == question.user %}
+    <a href="">Mark This Response as Correct</a>
+    {% endif %}
+  </li>
+  {% endfor %}
 </ul>
 
 {% if user.is_authenticated %}
 <div>
-    <a href="{% url 'answer_question' question_pk=question.pk %}">Respond to Inquiry</a>
+  <a href="{% url 'answer_question' question_pk=question.pk %}"
+    >Respond to Inquiry</a
+  >
 </div>
-{% endif %}
-{% if not user.is_authenticated %}
+{% endif %} {% if not user.is_authenticated %}
 <div>
-    <p>Please <a href="{% url 'auth_login' %}">Sign in</a> or <a href="{% url 'registration_register' %}">Sign up</a> to respond to an inquiry</p>
+  <p>
+    Please <a href="{% url 'auth_login' %}">Sign in</a> or
+    <a href="{% url 'registration_register' %}">Sign up</a> to respond to an
+    inquiry
+  </p>
 </div>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}
