@@ -1,25 +1,39 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h2>Inquiry List</h2>
 
+{% if user.is_authenticated %}
+<h3>Your Inquiries</h3>
 <ul>
-    {% for question in questions %}
-    <li><a href="{% url 'question_detail' question_pk=question.pk %}">{{ question }}</a>
-    {% if user == question.user %}
-    <a href="{% url 'edit_question' question_pk=question.pk %}">Edit This Inquiry</a>
-    {% endif %}
-    </li>
-    {% endfor %}
+  {% for question in your_questions %}
+  <li>
+    <a href="{% url 'question_detail' question_pk=question.pk %}"
+      >{{ question }}</a
+    >
+    <a href="{% url 'edit_question' question_pk=question.pk %}"
+      >Edit This Inquiry</a
+    >
+  </li>
+  {% endfor %} {% endif %}
+</ul>
+<h3>Others' Inquiries</h3>
+<ul>
+  {% for question in other_users_questions %}
+  <li>
+    <a href="{% url 'question_detail' question_pk=question.pk %}"
+      >{{ question }}</a
+    >
+  </li>
+  {% endfor %}
 </ul>
 {% if user.is_authenticated %}
 <div>
-    <a href="{% url 'ask_question' %}">Make an Inquiry</a>
+  <a href="{% url 'ask_question' %}">Make an Inquiry</a>
 </div>
-{% endif %}
-{% if not user.is_authenticated %}
+{% endif %} {% if not user.is_authenticated %}
 <div>
-    <p>Please <a href="{% url 'auth_login' %}">Sign in</a> or <a href="{% url 'registration_register' %}">Sign up</a> to make an inquiry</p>
+  <p>
+    Please <a href="{% url 'auth_login' %}">Sign in</a> or
+    <a href="{% url 'registration_register' %}">Sign up</a> to make an inquiry
+  </p>
 </div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

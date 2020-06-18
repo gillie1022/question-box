@@ -10,8 +10,9 @@ def homepage(request):
     return render(request, 'core/home.html')
 
 def list_questions(request):
-    questions = Question.objects.all()
-    return render(request, "core/list_questions.html", {"questions": questions,})
+    your_questions = request.user.questions.all()
+    other_users_questions = [question for question in Question.objects.all() if not question in your_questions]
+    return render(request, "core/list_questions.html", {"your_questions": your_questions, "other_users_questions": other_users_questions})
 
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
