@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <h2>Inquiry List</h2>
 
+<a href="{% url 'search_questions' %}">Search Inquiries</a>
 {% if user.is_authenticated %}
 <h3>Your Inquiries</h3>
 <ul>

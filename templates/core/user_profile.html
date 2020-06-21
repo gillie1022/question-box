@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %}
+{% if user.is_authenticated %}
+<h2>{{ user.username }}</h2>
+
+<h3>Your Inquiries</h3>
+<ul>
+  {% for question in your_questions %}
+  <li>
+    <a href="{% url 'question_detail' question_pk=question.pk %}"
+      >{{ question }}</a
+    >
+  </li>
+  {% endfor %}
+  </ul>
+<h3>Your Starred Inquiries</h3>
+<ul>
+  {% for question in starred_questions %}
+  <li>
+    <a href="{% url 'question_detail' question_pk=question.pk %}"
+      >{{ question }}</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

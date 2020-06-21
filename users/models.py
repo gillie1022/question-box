@@ -7,4 +7,4 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     def is_starred_question(self, question):
-        return self.starred_questions.filter(pk=question.pk).count == 1
+        return self.starred_questions.filter(pk=question.pk).count() == 1
