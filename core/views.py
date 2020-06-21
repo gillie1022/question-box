@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Question, Answer
+from .models import Question, Answer, search_questions_for_user
 from .forms import QuestionForm, AnswerForm
 # Create your views here.
 def homepage(request):
@@ -18,6 +18,22 @@ def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     return render(request, "core/question_detail.html", {"question": question})
 
+def search_questions(request):
+    query = request.GET.get('q')
+
+    if query is not None:
+        questions = search_questions_for_user(request.user, query)
+    else:
+        questions = None
+    
+    return render(request, 'core/search_questions.html', {
+        'query': query,
+        'questions': questions,
+    })
+
+@login_required
+def toggle_star_question(request, question_pk):
+    pass
 
 @login_required
 def ask_question(request):
