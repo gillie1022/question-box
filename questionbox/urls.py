@@ -26,8 +26,11 @@ urlpatterns = [
     path('questions/<int:question_pk>/detail/', core_views.question_detail, name='question_detail'),
     path('questions/new/', core_views.ask_question, name='ask_question'),
     path('questions/<int:question_pk>/edit/', core_views.edit_question, name='edit_question'),
+    path('questions/<int:question_pk>/delete/', core_views.delete_question, name='delete_question'),
     path('questions/<int:question_pk>/star/', core_views.toggle_star_question, name='toggle_star_question'),
-    path('questions/<int:question_pk>/answer_question/', core_views.answer_question, name='answer_question'),
+    path('questions/<int:question_pk>/answer_question/', core_views.answer_question, 
+    name='answer_question'),
+    path('questions/<int:question_pk>/<int:answer_pk>/mark_correct/', core_views.mark_answer_correct, name='mark_correct'),
     path('questions/search/', core_views.search_questions, name='search_questions'),
     path('user/profile', core_views.user_profile, name='user_profile'),
 ]

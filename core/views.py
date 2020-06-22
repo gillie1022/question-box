@@ -19,7 +19,8 @@ def list_questions(request):
 def question_detail(request, question_pk):
     question = get_object_or_404(Question.objects.all(), pk=question_pk)
     is_user_starred = request.user.is_starred_question(question)
-    return render(request, "core/question_detail.html", {"question": question, "is_user_starred": is_user_starred,})
+    return render(request, "core/question_detail.html", {"question": question, "is_user_starred": is_user_starred,
+    })
 
 def search_questions(request):
     query = request.GET.get('q')
@@ -46,6 +47,19 @@ def toggle_star_question(request, question_pk):
     else:
         request.user.starred_questions.add(question)
         return JsonResponse({"isStarred": True})
+
+@login_required
+@csrf_exempt
+def mark_answer_correct(request, question_pk, answer_pk):
+    questions = Question.objects.all()
+    question = get_object_or_404(questions, pk=question_pk)
+    answers = question.answers.all()
+    answer = get_object_or_404(answers, pk=answer_pk)
+
+    if answer.marked_correct == False:
+        return JsonResponse({"markedCorrect": True})
+    else:
+        return JsonResponse({"markedCorrect": False})
 
 @login_required
 def ask_question(request):
@@ -90,6 +104,17 @@ def answer_question(request, question_pk):
         form = AnswerForm()
 
     return render(request, "core/answer_question.html", {"form": form, "question": question})
+
+@login_required
+def delete_question(request, question_pk):
+    question = get_object_or_404(request.user.questions, pk=question_pk)
+
+    if request.method == "POST":
+        question.delete()
+        return redirect(to='question_list')
+
+    return render(request, "core/delete_question.html", {"question": question})
+
 
 @login_required
 def user_profile(request):
