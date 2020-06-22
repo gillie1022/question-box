@@ -28,10 +28,14 @@
   {% for answer in question.answers.all %}
   <li>
     {{ answer.body |markdownify }} <strong>- by {{ answer.author }}</strong>
+    {% if answer.marked_correct %}
+    &#10004;
+    {% endif %}
     {% if user == question.user %}
     <a id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="">
       {% if answer.marked_correct %} Marked Correct {% else %} Mark Response Correct {% endif %}</a>
     {% endif %}
+    
   </li>
   {% endfor %}
 </ul>
