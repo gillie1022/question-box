@@ -56,10 +56,14 @@ def mark_answer_correct(request, question_pk, answer_pk):
     answers = question.answers.all()
     answer = get_object_or_404(answers, pk=answer_pk)
 
-    if answer.marked_correct == False:
-        return JsonResponse({"markedCorrect": True})
-    else:
+    if answer.marked_correct == True:
+        answer.marked_correct=False
+        answer.save()
         return JsonResponse({"markedCorrect": False})
+    else:
+        answer.marked_correct=True
+        answer.save()
+        return JsonResponse({"markedCorrect": True})
 
 @login_required
 def ask_question(request):

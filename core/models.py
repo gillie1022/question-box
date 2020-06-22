@@ -26,6 +26,9 @@ class Answer(models.Model):
     body = models.CharField(verbose_name="Response", max_length=500)
     answered_on = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     marked_correct = models.BooleanField(default=False)
+    
+    def is_marked_correct(self, answer):
+        return self.marked_correct.filter(pk=answer.pk).count() == 1
 
     def __str__(self):
         return self.body

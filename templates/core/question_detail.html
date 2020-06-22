@@ -14,6 +14,7 @@
 
     {% endif %}
   </h2>
+  <p>{{ question.body |markdownify}}</p>
   {% if user == question.user %}<a
     href="{% url 'edit_question' question_pk=question.pk %}"
     >Edit This Inquiry</a
@@ -21,7 +22,6 @@
   <a href="{% url 'delete_question' question_pk=question.pk %}"
     >Delete This Inquiry</a
   >{% endif %}
-  <p>{{ question.body |markdownify}}</p>
 </div>
 <h3>Responses</h3>
 <ul>
@@ -29,7 +29,8 @@
   <li>
     {{ answer.body |markdownify }} <strong>- by {{ answer.author }}</strong>
     {% if user == question.user %}
-    <a id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="">Mark This Response as Correct</a>
+    <a id="mark-correct" data-question-id="{{ question.pk }}" data-answer-id="{{ answer.pk }}" href="">
+      {% if answer.marked_correct %} Marked Correct {% else %} Mark Response Correct {% endif %}</a>
     {% endif %}
   </li>
   {% endfor %}
@@ -68,22 +69,22 @@
         }
       });
   });
-  let markCorrectLink = document.querySelector("#mark-correct");
-  markCorrectLink.addEventListener("click", (event) => {
+  let markCorrectLink = document.querySelectorAll("#mark-correct");
+  for (let answer of markCorrectLink){answer.addEventListener("click", (event) => {
     event.preventDefault();
-    let questionId = markCorrectLink.dataset.questionId;
-    let answerId = markCorrectLink.dataset.answerId
+    let questionId = answer.dataset.questionId;
+    let answerId = answer.dataset.answerId
     fetch("/questions/" + questionId + "/" + answerId + "/mark_correct/", {
       method: "POST",
       credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.markedCorrect) {markCorrectLink.innerHTML = "This answer is incorrect";
+        if (data.markedCorrect) {answer.innerHTML = "Marked Correct";
         } else {
-          markCorrectLink.innerHTML = "Mark this answer correct";
+          answer.innerHTML = "Mark Response Correct";
         }
       });
-  });
+  })};
 </script>
 {% endblock %}
