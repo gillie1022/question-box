@@ -50,10 +50,12 @@ INSTALLED_APPS = [
     'django_extensions',
     'markdownify',
     'registration',
+    'rest_framework',
 
     # Project-specific
     'users',
     'core',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -142,6 +144,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':
+    ['rest_framework.permissions.IsAuthenticatedOrReadOnly']
+}
 
 # Configure Django App for Heroku.
 

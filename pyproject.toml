@@ -17,6 +17,7 @@ gunicorn = "^20.0.4"
 django-markdownify = "^0.8.0"
 django-registration-redux = "^2.8"
 markdownify = "^0.4.1"
+djangorestframework = "^3.11.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.5.3"

@@ -17,6 +17,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
 from core import views as core_views
+from api import views as api_views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('users', api_views.UserViewSet)
+router.register('questions', api_views.QuestionViewSet, basename='question')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +39,8 @@ urlpatterns = [
     path('questions/<int:question_pk>/<int:answer_pk>/mark_correct/', core_views.mark_answer_correct, name='mark_correct'),
     path('questions/search/', core_views.search_questions, name='search_questions'),
     path('user/profile', core_views.user_profile, name='user_profile'),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls)),
 ]
 
 if settings.DEBUG:
