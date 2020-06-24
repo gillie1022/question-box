@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from users.models import User
 from core.models import Question
-from api.serializers import UserSerializer, QuestionSerializer
+from api.serializers import UserSerializer, QuestionSerializer, AnswerSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,3 +14,6 @@ class UserViewSet(viewsets.ModelViewSet):
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
