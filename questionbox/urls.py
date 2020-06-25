@@ -23,6 +23,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('users', api_views.UserViewSet)
 router.register('questions', api_views.QuestionViewSet, basename='question')
+router.register('answers', api_views.AnswerViewSet, basename='answers')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
