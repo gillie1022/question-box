@@ -22,3 +22,6 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

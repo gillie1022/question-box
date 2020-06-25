@@ -15,6 +15,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
     question = serializers.PrimaryKeyRelatedField(queryset=Question.objects.all())
+    marked_correct = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Answer
@@ -28,9 +29,9 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
-    answers = AnswerSerializer(many=True, required=False)
+    answers = AnswerSerializer(many=True, required=False, read_only=True)
     user = serializers.StringRelatedField()
-    starred_by = serializers.StringRelatedField(many=True)
+    starred_by = serializers.StringRelatedField(many=True, read_only=True)
 
     def create(self, validated_data):
         answers = validated_data.pop("answers", [])
